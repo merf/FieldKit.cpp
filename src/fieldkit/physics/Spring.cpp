@@ -12,7 +12,7 @@
 using namespace fieldkit::physics;
 	
 Spring::Spring() : 
-isAlive(true), restLength(0), strength(0), isALocked(false), isBLocked(false) {
+isAlive(false), restLength(0), strength(0), isALocked(false), isBLocked(false) {
 }
 
 Spring::Spring(Particle* a, Particle* b, float restLength, float strength) :
@@ -42,4 +42,8 @@ void Spring::reset() {
 void Spring::init(Particle* a, Particle* b, float restLength, float strength) {
 	this->a = a;
 	this->b = b;
+	this->restLength = restLength;
+	this->strength = strength;
+
+	isAlive = true;
 }

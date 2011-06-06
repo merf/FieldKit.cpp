@@ -30,6 +30,9 @@ namespace fieldkit { namespace physics {
 		// Flag, if either particle is locked in space
 		bool isALocked;
 		bool isBLocked;
+
+		// 
+		int id;
 		
 		Spring();
 		Spring(Particle* a, Particle* b, float restLength, float strength);

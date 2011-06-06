@@ -48,6 +48,9 @@ namespace fieldkit { namespace physics {
 		//! physical size in the simulation space
 		float size;
 
+		// 
+		int id;
+
 		Particle();
 		virtual ~Particle();
 		

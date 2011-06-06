@@ -44,7 +44,7 @@ void ParticleUpdate::apply(Physics* physics, float dt)
 		p->update(dt);
 		numAlive++;
 	}
-	physics->numParticles = numAlive;
+	physics->numActiveParticles = numAlive;
 
 	// apply constraints
 	for (int i=0; i<constraintIterations; i++) {
@@ -90,7 +90,7 @@ void ParticleUpdate::apply(Physics* physics, float dt)
 		p->update(dt);
 		numAlive++;
 	}
-	physics->numParticles = numAlive;
+	physics->numActiveParticles = numAlive;
 
 	// apply constraints
 	for (int i=0; i<constraintIterations; i++) {

@@ -20,6 +20,7 @@ namespace fieldkit { namespace physics {
 	class Emitter;
     class Spring;
 	class ParticleAllocator;
+	class SpringAllocator;
 	class SpringUpdate;
 	class NeighbourUpdate;
 	class ParticleUpdate;
@@ -31,7 +32,9 @@ namespace fieldkit { namespace physics {
 		Space* space;
 
 		//! number of currently active particles
-		int numParticles;
+		int numActiveParticles;
+		//! number of currently active springs
+		int numActiveSprings;
 		
 		// Constructors
 		Physics(Space* space);
@@ -43,23 +46,35 @@ namespace fieldkit { namespace physics {
         std::vector<Particle*> particles;
 		
 		void allocParticles(int count);
-		int getNumAllocated() { return numAllocated; }
+		int getNumAllocatedParticles() { return numAllocatedParticles; }
 		Particle* createParticle();
 		void addParticle(Particle* particle);
-		int getNumParticles() { return numParticles; }
+		void retireParticle(const int id);
+		void retireParticleRange(const int id_1, const int id_2);
+		int getNumParticles() { return numActiveParticles; }
+		bool hasParticlesAvailable(int num) { return num <= numAllocatedParticles - numActiveParticles; }
 		void destroyParticles();
 
 		// Springs
         std::vector<Spring*> springs;
 
+		void allocSprings(int count);
+		int getNumAllocated() { return numAllocatedSprings; }
+		Spring* createSpring();
 		void addSpring(Spring* spring);
 		void removeSpring(Spring* spring);
-		int getNumSprings() { return springs.size(); }
+		void retireSpring(const int id);
+		void retireSpringRange(const int id_1, const int id_2);
+		int getNumSprings() { return numActiveSprings; }
+		bool hasSpringsAvailable(int num) { return num <= numAllocatedSprings - numActiveSprings; }
 		void destroySprings();
 
 		// Strategies
 		void setParticleAllocator(ParticleAllocator* strategy);
 		ParticleAllocator* getParticleAllocator() { return particleAllocator; };
+
+		void setSpringAllocator(SpringAllocator* strategy);
+		SpringAllocator* getSpringAllocator() { return springAllocator; };
 
 		void setParticleUpdate(ParticleUpdate* strategy);
 		ParticleUpdate* getParticleUpdate() { return particleUpdate; };
@@ -73,12 +88,18 @@ namespace fieldkit { namespace physics {
 		// Accessors
 		void setOwnsSpace(bool isOwner) { ownsSpace = isOwner; }
 		bool getOwnsSpace() { return ownsSpace; }
+
+		int getNextID() { return ++nextID; }
 	
 	protected:
 		bool ownsSpace;
-		int numAllocated;
+		int numAllocatedParticles;
+		int numAllocatedSprings;
+
+		int nextID;
 
 		ParticleAllocator* particleAllocator;
+		SpringAllocator* springAllocator;
 		ParticleUpdate* particleUpdate;
 		SpringUpdate* springUpdate;
 		NeighbourUpdate* neighbourUpdate;
