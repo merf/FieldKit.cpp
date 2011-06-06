@@ -18,6 +18,9 @@ namespace fieldkit { namespace physics {
 		Particle* a;
 		Particle* b;
 		
+		// Flag to allow us to de-activate springs after their creation
+		bool isAlive;
+
 		// Spring rest length to which it always wants to return too
 		float restLength;
 		
@@ -32,7 +35,10 @@ namespace fieldkit { namespace physics {
 		Spring(Particle* a, Particle* b, float restLength, float strength);
 		virtual ~Spring() {};
 		
-		virtual void update();	
+		virtual void init(Particle* a, Particle* b, float restLength, float strength);
+		virtual void update();
+		
+		virtual void reset();
 	};
 
 } } // namespace fieldkit::physics

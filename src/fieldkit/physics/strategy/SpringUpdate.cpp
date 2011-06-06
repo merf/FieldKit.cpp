@@ -18,6 +18,9 @@ using namespace fieldkit::physics;
 void SpringUpdate::apply(Physics* physics) 
 {
 	BOOST_FOREACH(Spring* s, physics->springs) {
+		if(!s->isAlive)
+			continue;
+		
 		s->update();
 		
 		// apply constraints after spring update

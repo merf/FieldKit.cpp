@@ -12,15 +12,11 @@
 using namespace fieldkit::physics;
 	
 Spring::Spring() : 
-restLength(0), strength(0), isALocked(false), isBLocked(false) {
+isAlive(true), restLength(0), strength(0), isALocked(false), isBLocked(false) {
 }
 
 Spring::Spring(Particle* a, Particle* b, float restLength, float strength) :
-isALocked(false), isBLocked(false) {
-	this->a = a;
-	this->b = b;
-	this->restLength = restLength;
-	this->strength = strength;
+a(a), b(b), isAlive(true), restLength(restLength), strength(strength), isALocked(false), isBLocked(false) {
 }
 
 void Spring::update() {
@@ -35,4 +31,15 @@ void Spring::update() {
 	if(!b->isLocked && !isBLocked) {
 		b->position += delta * -normDistStrength * b->invWeight;
 	}
+}
+
+void Spring::reset() {
+	isAlive = false;
+	a = NULL;
+	b = NULL;
+}
+
+void Spring::init(Particle* a, Particle* b, float restLength, float strength) {
+	this->a = a;
+	this->b = b;
 }
