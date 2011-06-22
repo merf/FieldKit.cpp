@@ -253,8 +253,6 @@ void Physics::retireSpringRange(const int id_1, const int id_2)
 			numActiveSprings--;
 		}
 	}
-
-	printf("end spring in range not found");
 }
 
 void Physics::removeSpring(Spring* spring)
