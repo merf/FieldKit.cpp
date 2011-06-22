@@ -12,7 +12,7 @@
 using namespace fieldkit::physics;
 
 Particle::Particle() : Spatial(), 
-	isAlive(false), isLocked(false),
+	isAlive(false), ignoreConstraints(false), isLocked(false),
 	state(0), age(0.0f), lifeTime(1000.0f), drag(0.03f)
 {
 	position = Vec3f::zero();
@@ -43,6 +43,7 @@ void Particle::init(Vec3f const& location)
 	age = 0.0f;
 	lifeTime = 1000.0f;
 	isAlive = true;
+	ignoreConstraints = false;
 	
 	size = 1.0f;
 	isLocked = false;

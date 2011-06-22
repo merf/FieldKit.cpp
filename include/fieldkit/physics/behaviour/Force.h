@@ -29,7 +29,7 @@ namespace fieldkit { namespace physics {
 		
 	protected:
 		Vec3f direction;
-		Vec3f force;
+		Vec3f acceleration;
 	};
 	
 	// -- Gravity --------------------------------------------------------------

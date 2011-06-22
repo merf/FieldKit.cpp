@@ -12,10 +12,13 @@
 using namespace fieldkit::physics;
 
 void SphereConstraint::apply(Particle* p) {
-	bool isInside = contains(p->position);
-	if((isBoundingSphere && !isInside) || (!isBoundingSphere && isInside)) {
-		p->position.set(
-			((p->position - position).normalized() *= radius) += position
-		);
-	}	
+	if(p->isAlive && !p->ignoreConstraints)
+	{
+		bool isInside = contains(p->position);
+		if((isBoundingSphere && !isInside) || (!isBoundingSphere && isInside)) {
+			p->position.set(
+				((p->position - position).normalized() *= radius) += position
+				);
+		}	
+	}
 }

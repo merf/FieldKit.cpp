@@ -24,6 +24,8 @@ namespace fieldkit { namespace physics {
 		
 		//! flag set if particles lifeTime is up
 		bool isAlive;
+
+		bool ignoreConstraints;
 		
 		//! used by Springs and some Behaviours
 		float weight;

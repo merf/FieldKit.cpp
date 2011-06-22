@@ -21,9 +21,9 @@ Vec3f Force::getDirection() {
 }
 
 void Force::prepare(float dt) {
-	force = direction * weight;
+	acceleration = direction * weight;
 }
 
 void Force::apply(Particle* p) {
-	p->force += force;
+	p->force += acceleration * p->weight;
 }
